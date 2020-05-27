@@ -1,0 +1,24 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<h1 class="pt-5 pb-5">Aktuální TODOS</h1>
+
+<div class="list-group">
+  {% for todo in todos %}
+    {% if todo.important %}
+      <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action list-group-item-danger">
+        <b>{{ todo.title }}</b>
+        {% if todo.memo %} - {{ todo.memo|striptags|truncatechars:100 }} {% endif %}
+      </a>
+    {% else %}
+      <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action">
+        {{ todo.title }}
+        {% if todo.memo %} - {{ todo.memo|striptags|truncatechars:100 }} {% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+{% endblock %}

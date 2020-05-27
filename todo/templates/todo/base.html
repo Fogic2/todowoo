@@ -1,0 +1,88 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'todo/custom.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+
+    <title>Todo Woo</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg bg-warning">
+      <b><a class="navbar-brand text-dark pl-2" href="{% url 'home' %}">Todo Woo</a></b>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon pr-5">Menu</span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'currenttodos' %}">Aktuální</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'completedtodos' %}">Hotové</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-success" href="{% url 'createtodo' %}">Vytvořit</a>
+          </li>
+          <li class="nav-item">
+             <hr>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <b class="nav-link ml-auto pl-4 pr-2">{{ user.username }}</b>
+          </li>
+          <li class="nav-item active">
+            <form action="{% url 'logoutuser' %}" method="POST">
+              {% csrf_token %}
+              <button class="btn nav-link text-dark" type="submit">Odhlásit se</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  {% else %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+      <a class="navbar-brand" href="{% url 'home' %}">Todo Woo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <b class="nav-link">{{ user.username }}</b>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'signupuser' %}">Zaregistrovat se</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'loginuser' %}">Přihlásit se</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endif %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

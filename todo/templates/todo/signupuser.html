@@ -1,0 +1,39 @@
+{% extends "todo/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Registrace</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Jméno</label>
+                    <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+                    <small id="usernameHelp" class="form-text text-muted">Jméno nesmí být již zabrané. Pokud bude, dáme ti vědět.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password1">Heslo</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Potvrdit heslo</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                </div>
+                <button type="submit" class="btn btn-primary">Zaregistrovat</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Již máš účet? <a href="{% url 'loginuser' %}">Přihlaš se zde</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

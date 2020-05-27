@@ -1,0 +1,25 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<h1 class="pt-5 pb-5">Hotové TODOS</h1>
+
+<div class="list-group">
+  {% for todo in todos %}
+    {% if todo.important %}
+      <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action list-group-item-danger">
+        <b>{{ todo.title }}</b>
+        -
+        {{ todo.datecompleted|date:'j.m. Y H:i' }}
+      </a>
+    {% else %}
+      <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action">
+        {{ todo.title }}
+        -
+        {{ todo.datecompleted|date:'j.m. Y H:i' }}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}
